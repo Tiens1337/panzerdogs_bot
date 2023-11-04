@@ -1,0 +1,194 @@
+{
+  "playerData": {
+    "name": "Guest",
+    "type": 0,
+    "playerId": 0,
+    "partyId": "",
+    "uid": "",
+    "allegianceIndex": 0,
+    "tank": {
+      "parts": {
+        "turret": "basiccannon",
+        "chassis": "basic",
+        "tracks": "basic"
+      },
+      "skin": "bluey"
+    },
+    "customization": {
+      "killQuip": "takethat",
+      "deathQuip": "argh",
+      "customEmoteConfig": {
+        "e0": {
+            "name": null
+        },
+        "e1": {
+            "name": "emojis/cry"
+        },
+        "e2": {
+            "name": "emojis/thumbsup"
+        },
+        "e3": {
+            "name": "emojis/laugh"
+        },
+        "e4": {
+            "name": null
+        },
+        "e5": {
+            "name": null
+        },
+        "e6": {
+            "name": null
+        },
+        "e7": {
+            "name": null
+        },
+        "e8": {
+            "name": null
+        },
+        "e9": {
+            "name": null
+        }
+    },
+      "callingCardConfig": {
+        "pattern": "basic",
+        "colourScheme": "teamcolour",
+        "border": "grey",
+        "stats": [
+          "total/matches",
+          "total/wins",
+          "total/dmgdealt"
+        ]
+      }
+    },
+    "stats": {
+      "kills": 8,
+      "killStreak": 1,
+      "killStreakTime": 1698528747113,
+      "killStreakId": 5,
+      "selfKills": 0,
+      "doubleKill": 1,
+      "tripleKill": 1,
+      "wipeOut": 0,
+      "botKills": 8,
+      "deaths": 0,
+      "bounty": 8,
+      "score": 47,
+      "assists": 0,
+      "timeDead": 0,
+      "powerUpsCollected": 0,
+      "powerUps": {},
+      "healthCratesCollected": 0,
+      "dmgDealt": 7000,
+      "dmgReceived": 438.75,
+      "timeOfZombie": 0,
+      "specialScrap": 28,
+      "firstBlood": 1,
+      "emojisSent": 0,
+      "moveDistance": 82.03110266768772,
+      "moveDistanceInt": 82,
+      "boostDistance": 17.072924812281833,
+      "boostDistanceInt": 17,
+      "breakablesBroken": 0,
+      "killWith": {
+        "0": 8
+      },
+      "dmgDealtWith": {
+        "0": 7000
+      },
+      "dmgReceivedBy": {
+        "0": 438.75
+      },
+      "dmgDealtWithTurret": {
+        "standard": 7000
+      },
+      "killWithTurret": {
+        "standard": 8
+      },
+      "killWithChassis": {
+        "balanced": 8
+      },
+      "killWithTracks": {
+        "balanced": 8
+      },
+      "pushedDistance": 0,
+      "pushedDistanceInt": 0
+    },
+    "startingStats": {
+      "total": {
+        "matches": 0,
+        "wins": 0,
+        "dmgDealt": 0
+      }
+    },
+    "assignedSpawnPointId": "1--19,5",
+    "spawnTimer": null,
+    "dog": {
+      "name": "Private Pupper",
+      "imageName": "gui/privatePupper",
+      "animatedImageName": "gui/privatePupper-animated",
+      "imageUrl": null,
+      "animatedImageUrl": null
+    },
+    "privateData": {
+      "walletSign": "",
+      "gaClientId": "",
+      "platform": "ANDROID"
+    }
+  },
+  "matchData": {
+    "reason": "score",
+    "winningAllegiance": 0,
+    "teamScores": {
+      "0": 10,
+      "1": 0
+    },
+    "mvpId": 0,
+    "gameMode": "teamdeathmatch3v3",
+    "isOnline": false,
+    "endType": 1,
+    "playersJson": [
+      "{\"name\":\"Guest\",\"type\":0,\"playerId\":0,\"partyId\":\"\",\"uid\":\"\",\"allegianceIndex\":0,\"tank\":{\"parts\":{\"turret\":\"basiccannon\",\"chassis\":\"basic\",\"tracks\":\"basic\"},\"skin\":\"bluey\"},\"customization\":{\"killQuip\":\"takethat\",\"deathQuip\":\"argh\",\"customEmoteConfig\":{\"e0\":{\"quantity\":0},\"e1\":{\"name\":\"emojis/cry\",\"quantity\":1},\"e2\":{\"name\":\"emojis/thumbsup\",\"quantity\":1},\"e3\":{\"name\":\"emojis/laugh\",\"quantity\":1},\"e4\":{\"quantity\":0},\"e5\":{\"quantity\":0},\"e6\":{\"quantity\":0},\"e7\":{\"quantity\":0},\"e8\":{\"quantity\":0},\"e9\":{\"quantity\":0}},\"callingCardConfig\":{\"pattern\":\"basic\",\"colourScheme\":\"teamcolour\",\"border\":\"grey\",\"stats\":[\"total/matches\",\"total/wins\",\"total/dmgdealt\"]}},\"stats\":{\"kills\":8,\"killStreak\":1,\"killStreakTime\":1698528747113,\"killStreakId\":5,\"selfKills\":0,\"doubleKill\":1,\"tripleKill\":1,\"wipeOut\":0,\"botKills\":8,\"deaths\":0,\"bounty\":8,\"score\":47,\"assists\":0,\"timeDead\":0,\"powerUpsCollected\":0,\"powerUps\":{},\"healthCratesCollected\":0,\"dmgDealt\":7000,\"dmgReceived\":438.75,\"timeOfZombie\":0,\"specialScrap\":28,\"firstBlood\":1,\"emojisSent\":0,\"moveDistance\":82.03110266768772,\"moveDistanceInt\":82,\"boostDistance\":17.072924812281833,\"boostDistanceInt\":17,\"breakablesBroken\":0,\"killWith\":{\"0\":8},\"dmgDealtWith\":{\"0\":7000},\"dmgReceivedBy\":{\"0\":438.75},\"dmgDealtWithTurret\":{\"standard\":7000},\"killWithTurret\":{\"standard\":8},\"killWithChassis\":{\"balanced\":8},\"killWithTracks\":{\"balanced\":8},\"pushedDistance\":0,\"pushedDistanceInt\":0},\"startingStats\":{\"total\":{\"matches\":0,\"wins\":0,\"dmgDealt\":0}},\"assignedSpawnPointId\":\"1--19,5\",\"spawnTimer\":null,\"dog\":{\"name\":\"Private Pupper\",\"imageName\":\"gui/privatePupper\",\"animatedImageName\":\"gui/privatePupper-animated\",\"imageUrl\":null,\"animatedImageUrl\":null}}",
+      "{\"name\":\"quietlycra\",\"type\":2,\"playerId\":773592592306,\"partyId\":\"\",\"uid\":\"\",\"allegianceIndex\":0,\"tank\":{\"parts\":{\"turret\":\"tandem\",\"chassis\":\"sturdy\",\"tracks\":\"behemoth\"},\"skin\":\"bluey\"},\"customization\":{\"killQuip\":\"nopity\",\"deathQuip\":\"dogdays\"},\"stats\":{\"kills\":2,\"killStreak\":1,\"killStreakTime\":1698528748788,\"killStreakId\":1,\"selfKills\":0,\"doubleKill\":0,\"tripleKill\":0,\"wipeOut\":0,\"botKills\":2,\"deaths\":0,\"bounty\":2,\"score\":21,\"assists\":0,\"timeDead\":0,\"powerUpsCollected\":2,\"powerUps\":{\"rocketlauncher\":2},\"healthCratesCollected\":0,\"dmgDealt\":1896,\"dmgReceived\":0,\"timeOfZombie\":0,\"specialScrap\":1,\"firstBlood\":0,\"emojisSent\":0,\"moveDistance\":179.49821139762233,\"moveDistanceInt\":0,\"boostDistance\":48.96090974677787,\"boostDistanceInt\":0,\"breakablesBroken\":0,\"killWith\":{\"4\":2},\"dmgDealtWith\":{\"0\":396,\"4\":1500},\"dmgReceivedBy\":{},\"dmgDealtWithTurret\":{\"scatter\":1896},\"killWithTurret\":{\"scatter\":2},\"killWithChassis\":{\"heavy\":2},\"killWithTracks\":{\"heavy\":2},\"pushedDistance\":0,\"pushedDistanceInt\":0},\"startingStats\":{\"total\":{\"matches\":0,\"wins\":0,\"dmgDealt\":0}},\"assignedSpawnPointId\":\"1--19.5,1.5\",\"spawnTimer\":null,\"dog\":{\"imageUrl\":null,\"name\":\"quietlycra\",\"localDogFrame\":30}}",
+      "{\"name\":\"One03\",\"type\":2,\"playerId\":342150365022,\"partyId\":\"\",\"uid\":\"\",\"allegianceIndex\":0,\"tank\":{\"parts\":{\"turret\":\"nimble\",\"chassis\":\"steady\",\"tracks\":\"steady\"},\"skin\":\"bluey\"},\"customization\":{\"killQuip\":\"bigdogs\",\"deathQuip\":\"cantbelieve\"},\"stats\":{\"kills\":0,\"killStreak\":0,\"killStreakTime\":0,\"killStreakId\":0,\"selfKills\":0,\"doubleKill\":0,\"tripleKill\":0,\"wipeOut\":0,\"botKills\":0,\"deaths\":0,\"bounty\":0,\"score\":14,\"assists\":2,\"timeDead\":0,\"powerUpsCollected\":1,\"powerUps\":{\"machinegun\":1},\"healthCratesCollected\":0,\"dmgDealt\":721.25,\"dmgReceived\":0,\"timeOfZombie\":0,\"specialScrap\":null,\"firstBlood\":0,\"emojisSent\":0,\"moveDistance\":158.37160804468493,\"moveDistanceInt\":0,\"boostDistance\":29.8953606862569,\"boostDistanceInt\":0,\"breakablesBroken\":0,\"killWith\":{},\"dmgDealtWith\":{\"0\":71.25,\"8\":650},\"dmgReceivedBy\":{},\"dmgDealtWithTurret\":{\"light\":721.25},\"killWithTurret\":{},\"killWithChassis\":{},\"killWithTracks\":{},\"pushedDistance\":0,\"pushedDistanceInt\":0},\"startingStats\":{\"total\":{\"matches\":0,\"wins\":0,\"dmgDealt\":0}},\"assignedSpawnPointId\":\"1--19,-2\",\"spawnTimer\":null,\"dog\":{\"imageUrl\":null,\"name\":\"One03\",\"localDogFrame\":18}}",
+      "{\"name\":\"ExcitedSpeaker\",\"type\":2,\"playerId\":203515283587,\"partyId\":\"\",\"uid\":\"\",\"allegianceIndex\":1,\"tank\":{\"parts\":{\"turret\":\"steady\",\"chassis\":\"spartan\",\"tracks\":\"boosted\"},\"skin\":\"tangerine\"},\"customization\":{\"killQuip\":\"washaway\",\"deathQuip\":\"regretthis\"},\"stats\":{\"kills\":0,\"killStreak\":0,\"killStreakTime\":0,\"killStreakId\":0,\"selfKills\":0,\"doubleKill\":0,\"tripleKill\":0,\"wipeOut\":0,\"botKills\":0,\"deaths\":4,\"bounty\":-4,\"score\":2,\"assists\":0,\"timeDead\":15,\"powerUpsCollected\":0,\"powerUps\":{},\"healthCratesCollected\":0,\"dmgDealt\":0,\"dmgReceived\":3773,\"timeOfZombie\":0,\"specialScrap\":0,\"firstBlood\":0,\"emojisSent\":0,\"moveDistance\":136.18879758048485,\"moveDistanceInt\":0,\"boostDistance\":19.48089984412312,\"boostDistanceInt\":0,\"breakablesBroken\":0,\"killWith\":{},\"dmgDealtWith\":{},\"dmgReceivedBy\":{\"0\":2823,\"4\":500,\"8\":450},\"dmgDealtWithTurret\":{},\"killWithTurret\":{},\"killWithChassis\":{},\"killWithTracks\":{},\"pushedDistance\":0,\"pushedDistanceInt\":0},\"startingStats\":{\"total\":{\"matches\":0,\"wins\":0,\"dmgDealt\":0}},\"assignedSpawnPointId\":\"0-19.5,1.5\",\"spawnTimer\":{\"z\":0,\"name\":\"tweenBehavior\",\"updateWhenPaused\":0,\"isAdded\":true},\"dog\":{\"imageUrl\":null,\"name\":\"ExcitedSpeaker\",\"localDogFrame\":26}}",
+      "{\"name\":\"GradualSea\",\"type\":2,\"playerId\":312764232472,\"partyId\":\"\",\"uid\":\"\",\"allegianceIndex\":1,\"tank\":{\"parts\":{\"turret\":\"ranger\",\"chassis\":\"plated\",\"tracks\":\"boosted\"},\"skin\":\"peach\"},\"customization\":{\"killQuip\":\"washaway\",\"deathQuip\":\"hacker\"},\"stats\":{\"kills\":0,\"killStreak\":0,\"killStreakTime\":0,\"killStreakId\":0,\"selfKills\":0,\"doubleKill\":0,\"tripleKill\":0,\"wipeOut\":0,\"botKills\":0,\"deaths\":3,\"bounty\":-3,\"score\":2,\"assists\":0,\"timeDead\":10,\"powerUpsCollected\":0,\"powerUps\":{},\"healthCratesCollected\":0,\"dmgDealt\":225,\"dmgReceived\":3194.25,\"timeOfZombie\":0,\"specialScrap\":0,\"firstBlood\":0,\"emojisSent\":0,\"moveDistance\":179.19040828305205,\"moveDistanceInt\":0,\"boostDistance\":37.898941333614,\"boostDistanceInt\":0,\"breakablesBroken\":0,\"killWith\":{},\"dmgDealtWith\":{\"0\":225},\"dmgReceivedBy\":{\"0\":2194.25,\"4\":1000},\"dmgDealtWithTurret\":{\"heavy\":225},\"killWithTurret\":{},\"killWithChassis\":{},\"killWithTracks\":{},\"pushedDistance\":0,\"pushedDistanceInt\":0},\"startingStats\":{\"total\":{\"matches\":0,\"wins\":0,\"dmgDealt\":0}},\"assignedSpawnPointId\":\"0-19,5\",\"spawnTimer\":{\"z\":0,\"name\":\"tweenBehavior\",\"updateWhenPaused\":0,\"isAdded\":true},\"dog\":{\"imageUrl\":null,\"name\":\"GradualSea\",\"localDogFrame\":8}}",
+      "{\"name\":\"REGULARSEPAL\",\"type\":2,\"playerId\":526378790564,\"partyId\":\"\",\"uid\":\"\",\"allegianceIndex\":1,\"tank\":{\"parts\":{\"turret\":\"packed\",\"chassis\":\"diet\",\"tracks\":\"steady\"},\"skin\":\"grape\"},\"customization\":{\"killQuip\":\"bam\",\"deathQuip\":\"dogslife\"},\"stats\":{\"kills\":0,\"killStreak\":0,\"killStreakTime\":0,\"killStreakId\":0,\"selfKills\":0,\"doubleKill\":0,\"tripleKill\":0,\"wipeOut\":0,\"botKills\":0,\"deaths\":3,\"bounty\":-3,\"score\":2,\"assists\":0,\"timeDead\":15,\"powerUpsCollected\":0,\"powerUps\":{},\"healthCratesCollected\":0,\"dmgDealt\":213.75,\"dmgReceived\":2650,\"timeOfZombie\":0,\"specialScrap\":0,\"firstBlood\":0,\"emojisSent\":0,\"moveDistance\":141.75474964223312,\"moveDistanceInt\":0,\"boostDistance\":11.455443409348375,\"boostDistanceInt\":0,\"breakablesBroken\":0,\"killWith\":{},\"dmgDealtWith\":{\"0\":213.75},\"dmgReceivedBy\":{\"0\":2450,\"8\":200},\"dmgDealtWithTurret\":{\"light\":213.75},\"killWithTurret\":{},\"killWithChassis\":{},\"killWithTracks\":{},\"pushedDistance\":0,\"pushedDistanceInt\":0},\"startingStats\":{\"total\":{\"matches\":0,\"wins\":0,\"dmgDealt\":0}},\"assignedSpawnPointId\":\"0-19,5\",\"spawnTimer\":null,\"dog\":{\"imageUrl\":null,\"name\":\"REGULARSEPAL\",\"localDogFrame\":43}}"
+    ]
+  },
+  "matchStats": {
+    "kills": 8,
+    "selfKills": 0,
+    "botKills": 8,
+    "firstBlood": 1,
+    "doubleKill": 1,
+    "tripleKill": 1,
+    "wipeout": 0,
+    "deaths": 0,
+    "assists": 0,
+    "powerUps": 0,
+    "healthPacks": 0,
+    "dmgDealt": 7000,
+    "dmgReceived": 438.75,
+    "emojisSent": 0,
+    "boostDistance": 17,
+    "breakablesBroken": 0,
+    "pushedDistance": 0,
+    "mvp": 1,
+    "matches": 1,
+    "wins": 1,
+    "losses": 0,
+    "draws": 0,
+    "score": 10,
+    "earlyTdmWin": 1,
+    "winswith_turret_standard": 1,
+    "winswith_chassis_balanced": 1,
+    "winswith_tracks_balanced": 1,
+    "killwith_Basic": 8,
+    "dmgdealtwith_Basic": 7000,
+    "dmgreceivedby_Basic": 438.75,
+    "dmgdealtwith_turret_standard": 7000,
+    "killwith_turret_standard": 8,
+    "killwith_chassis_balanced": 8,
+    "killwith_tracks_balanced": 8
+  }
+}
