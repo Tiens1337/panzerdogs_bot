@@ -7,6 +7,7 @@ from panzerdogs_api import PanzerdogsApi
 import credentials_generator
 from match_stats import MatchStats
 import random
+import proxies
 
 from concurrent.futures import ThreadPoolExecutor, wait
 import threading
@@ -18,6 +19,7 @@ DEFAULT_PASS = 'ASD123qwe'
 
 
 def start_in_thread(acc: AccountData):
+    rand_proxy = False
     while True:
         sleep(random.randint(0, 20)) # for more smooth start
 
@@ -31,22 +33,30 @@ def start_in_thread(acc: AccountData):
             if resp is None:
                 logger.error(f'{acc.id}: Failed to register new user in firebase')
                 continue
+            
+            proxy = ""
+            if rand_proxy:
+                proxy = proxies.get_random_in_requests_format()
+            else: 
+                proxy = proxies.convert_proxy_to_requests_format(acc.proxy)
 
-            # TODO MAKE RANDOM PROXY
-            panzerdogsApi = PanzerdogsApi(resp["idToken"], acc.proxy)
+            panzerdogsApi = PanzerdogsApi(resp["idToken"], proxy)
             resp = panzerdogsApi.register(username)
             if resp is None:
                 logger.error(f'{acc.id}: Failed to register new user in game')
+                rand_proxy = True
                 continue
 
             resp = panzerdogsApi.set_recruit()
             if resp is None:
                 logger.error(f'{acc.id}: Failed to set recruit')
+                rand_proxy = True
                 continue
 
             resp = panzerdogsApi.link_wallet(acc.public_key)
             if resp is None:
                 logger.error(f'{acc.id}: Failed to link wallet')
+                rand_proxy = True
                 continue
 
             while True:
@@ -63,6 +73,10 @@ def start_in_thread(acc: AccountData):
 
         else:
             resp = firebaseApi.signup(acc.pd_email, acc.pd_password)
+            if resp is None:
+                logger.error(f'{acc.id}: Failed to sign up in firebase')
+                rand_proxy = True
+                continue
             panzerdogsApi = PanzerdogsApi(resp["idToken"], acc.proxy)
 
         for i in range(10):
@@ -71,7 +85,7 @@ def start_in_thread(acc: AccountData):
 
             resp = panzerdogsApi.get_matchmaking()
             if resp is None or resp.get("error"):
-                logger.error("{acc.id}: Failed to get matchmaking")
+                logger.error(f"{acc.id}: Failed to get matchmaking")
                 exit()
 
             room_id = resp["roomId"]
