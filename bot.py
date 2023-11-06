@@ -20,7 +20,7 @@ from models.account import AccountData
 def start_in_thread(acc: AccountData):
     rand_proxy = False
     while True:
-        sleep(random.randint(0, 60)) # for more smooth start
+        sleep(random.randint(0, 20)) # for more smooth start
 
         firebaseApi = FirebaseApi()
         panzerdogsApi = {}
@@ -32,9 +32,12 @@ def start_in_thread(acc: AccountData):
             proxy_str = proxies.parse_proxy_str(acc.proxy)
             proxy = proxies.convert_proxy_to_requests_format(proxy_str)
 
-        if acc.pd_username is None:
+        if not acc.is_registred:
             username = credentials_generator.get_random_username()
-            email = credentials_generator.generate_email(username)
+            if acc.pd_email is None:
+                email = credentials_generator.generate_email(username)
+            else:
+                email = acc.pd_email
 
             resp = firebaseApi.register_new_user(email, config.DEFAULT_PASS)
             if resp is None:
@@ -65,7 +68,9 @@ def start_in_thread(acc: AccountData):
                     acc.pd_username = username
                     acc.pd_email = email
                     acc.pd_password = config.DEFAULT_PASS
+                    acc.is_registred = True
                     acc.save()
+                    logger.success(f'{acc.id}: {email} registred')
                     break
                 except Exception as e:
                     logger.error(f'{acc.id}: database is locked')
@@ -79,15 +84,16 @@ def start_in_thread(acc: AccountData):
                 rand_proxy = True
                 continue
             panzerdogsApi = PanzerdogsApi(resp["idToken"], acc.proxy)
+            logger.info(f'{acc.id}: signed in')
 
-        for i in range(3):
+        for i in range(5):
             match_stats = MatchStats()
             logger.info(f"{acc.id}: Starting fight {i}")
 
             resp = panzerdogsApi.get_matchmaking()
             if resp is None or resp.get("error"):
                 logger.error(f"{acc.id}: Failed to get matchmaking")
-                exit()
+                continue
 
             room_id = resp["roomId"]
             logger.info(f"{acc.id}: Match started, match id: {room_id}")
@@ -112,14 +118,14 @@ def start_in_thread(acc: AccountData):
 
 
 def start():
-    accs = list(AccountData.select())
-    models.connector.connection.close()
-    
-    with ThreadPoolExecutor(config.MAX_WORKERS) as executor:
-        future = {executor.submit(start_in_thread, acc)
-                    for acc in accs}
-        wait(future)
-        logger.success('====== DONE ======')
+    while True:
+        accs = list(AccountData.select())
+        models.connector.connection.close()
+        
+        with ThreadPoolExecutor(config.MAX_WORKERS) as executor:
+            future = {executor.submit(start_in_thread, acc)
+                        for acc in accs}
+            wait(future)
 
 
 if __name__ == '__main__':

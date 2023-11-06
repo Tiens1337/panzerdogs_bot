@@ -11,7 +11,7 @@ with open('accs_to_fill.txt', 'r') as f:
         s = line.split(';')
 
         AccountData.create(public_key=s[0],
-                           private_key=s[1],
+                           pd_email=s[1],
                            proxy=s[2],
                            creator=CREATOR,
                            is_referral=IS_REF)
