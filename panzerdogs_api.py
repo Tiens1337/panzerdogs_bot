@@ -11,12 +11,17 @@ from random_user_agent.params import SoftwareName, OperatingSystem
 
 import compressor
 
+import os, random
+
+def get_random_match_end():
+    return random.choice(os.listdir("match_end_examples"))
+
 
 class PanzerdogsApi:
     def __init__(self, auth_token: str, proxy) -> None:
         self.username = None
 
-        with open("match_end.json", "r", encoding="utf-8") as f:
+        with open(f"match_end_examples/{get_random_match_end()}", "r", encoding="utf-8") as f:
             self.match_end_data = json.load(f)
 
         software_names = [SoftwareName.ANDROID.value]
