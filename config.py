@@ -1,7 +1,8 @@
 
 PROXY_ROTATION = False
 
-EMAILS = ['web3mail.pro']
+# EMAILS = ['web3mail.pro']
+EMAILS = ['gmail.com']
 
 DB = 'db.sqlite'
 

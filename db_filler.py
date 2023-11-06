@@ -8,10 +8,10 @@ IS_REF = True
 with open('accs_to_fill.txt', 'r') as f:
     for line in f:
         line = line.replace('\n', '')
-        s = line.split('\t')
+        s = line.split(';')
 
-        AccountData.create(public_key=s[0],
-                           private_key=s[1],
+        AccountData.create(public_key=s[1],
+                           private_key=s[0],
                            proxy=s[2],
                            creator=CREATOR,
                            is_referral=IS_REF)

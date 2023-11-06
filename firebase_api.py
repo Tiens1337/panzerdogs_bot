@@ -4,6 +4,8 @@ import requests
 from random_user_agent.user_agent import UserAgent
 from random_user_agent.params import SoftwareName, OperatingSystem
 
+import proxies
+
 KEY = "AIzaSyCArlNof-vMCzyHYOaLyQ881RpVwRaNu-Q"
 
 
@@ -21,6 +23,8 @@ class FirebaseApi:
         self.session = requests.Session()
         self.session.headers.update(
             {'User-Agent': user_agent_rotator.get_random_user_agent()})
+        
+        self.session.proxies = proxies.get_random_in_requests_format()
 
     def post(url, data):
         pass
@@ -60,7 +64,7 @@ class FirebaseApi:
         }
 
         try:
-            response = self.session.post(url=url)
+            response = self.session.post(url=url, json=input_data)
         except Exception as ex:
             print(ex)
             return None

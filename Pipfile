@@ -8,6 +8,8 @@ random-user-agent = "*"
 requests = "*"
 loguru = "*"
 peewee = "*"
+python-socketio = {extras = ["client"], version = "*"}
+pysocks = "*"
 
 [dev-packages]
 

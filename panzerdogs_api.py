@@ -2,6 +2,9 @@ from datetime import datetime
 import json
 import random
 import requests
+import proxies
+from match_stats import MatchStats
+import bot_generator
 
 from random_user_agent.user_agent import UserAgent
 from random_user_agent.params import SoftwareName, OperatingSystem
@@ -27,9 +30,12 @@ class PanzerdogsApi:
                                     'Authorization': auth_token,
                                      'Idtoken': auth_token,
                                      'User-Agent': user_agent_rotator.get_random_user_agent(),
-                                     'Serverbuild': "47",
+                                     'Serverbuild': "48",
                                      "Gamemode": "teamdeathmatch",
                                      "Region": "eu"})
+
+        proxy = proxies.parse_proxy_str(proxy)
+        self.session.proxies = proxies.convert_proxy_to_requests_format(proxy)
 
     def register(self, username: str):
         url = "https://lobby2.luckykatgames.net/userdata/register"
@@ -101,6 +107,10 @@ class PanzerdogsApi:
             return json.loads(response.text)
         return None
 
+    def check_wallet():
+        pass
+    # https://lobby2.luckykatgames.net/wallet-link/get
+
     def get_matchmaking(self):
         url = "https://lobby2.luckykatgames.net/matchmaking"
 
@@ -115,14 +125,16 @@ class PanzerdogsApi:
             return res
         return None
 
-    def ocs(self):
+    def ocs(self, stats: MatchStats):
         url = "https://lobby2.luckykatgames.net/ocs"
-        data = {"moveDistance": random.randint(20, 80),
-                "boostDistance": 15,
-                "dmgDealt": (random.randint(30, 70) * 100),
-                "kills": random.randint(5, 6),
-                "firstBlood": random.randint(0, 1),
-                "dmgReceived": random.randint(50, 600)}
+        data = {
+            "moveDistance": int(stats.move_distance),
+            "boostDistance": int(stats.boost_distance),
+            "dmgDealt": stats.dmg_dealt,
+            "kills": stats.kills,
+            "firstBlood": stats.first_blood,
+            "dmgReceived": stats.dmg_received
+        }
         compressed_data = compressor.Compress(json.dumps(data))
         input_data = {"data": compressed_data}
 
@@ -136,51 +148,58 @@ class PanzerdogsApi:
             return json.loads(response.text)
         return None
 
-    def match_end(self, room_id: str):
+    def match_end(self, room_id: str, stats: MatchStats):
 
         url = f"https://lobby2.luckykatgames.net/session/match_end?id={room_id}"
 
         self.match_end_data["playerData"]["name"] = self.username
-        self.match_end_data["playerData"]["stats"]["kills"] = random.randint(6, 10)
-        self.match_end_data["playerData"]["stats"]["killStreakTime"] = int(datetime.now().timestamp() * 1000)
-        self.match_end_data["playerData"]["stats"]["botKills"] = self.match_end_data["playerData"]["stats"]["kills"]
-        self.match_end_data["playerData"]["stats"]["deaths"] = random.randint(0, 1)
-        if self.match_end_data["playerData"]["stats"]["deaths"] > 0:
-            self.match_end_data["playerData"]["stats"]["timeDead"] = 5
-        else:
-            self.match_end_data["playerData"]["stats"]["timeDead"] = 0
-        self.match_end_data["playerData"]["stats"]["score"] = random.randint(40, 50)
-        self.match_end_data["playerData"]["stats"]["dmgDealt"] = (random.randint(50, 80) * 100)
-        self.match_end_data["playerData"]["stats"]["dmgReceived"] = random.uniform(200.0, 500.0)
-        self.match_end_data["playerData"]["stats"]["firstBlood"] = random.randint(0, 1)
-        self.match_end_data["playerData"]["stats"]["moveDistance"] = random.uniform(60.0, 90.0)
-        self.match_end_data["playerData"]["stats"]["boostDistance"] = random.uniform(15.0, 20.0)
+        self.match_end_data["playerData"]["stats"]["kills"] = stats.kills
+        self.match_end_data["playerData"]["stats"]["killStreakTime"] = int(
+            datetime.now().timestamp() * 1000)
+        self.match_end_data["playerData"]["stats"]["botKills"] = stats.kills
+        self.match_end_data["playerData"]["stats"]["deaths"] = stats.deaths
+        self.match_end_data["playerData"]["stats"]["timeDead"] = stats.time_dead
+
+        self.match_end_data["playerData"]["stats"]["score"] = stats.score
+        self.match_end_data["playerData"]["stats"]["dmgDealt"] = stats.dmg_dealt
+        self.match_end_data["playerData"]["stats"]["dmgReceived"] = stats.dmg_received
+        self.match_end_data["playerData"]["stats"]["firstBlood"] = stats.first_blood
+        self.match_end_data["playerData"]["stats"]["moveDistance"] = stats.move_distance
+        self.match_end_data["playerData"]["stats"]["moveDistanceInt"] = int(
+            stats.move_distance)
+        self.match_end_data["playerData"]["stats"]["boostDistance"] = stats.boost_distance
         self.match_end_data["playerData"]["stats"]["boostDistanceInt"] = int(
-            self.match_end_data["playerData"]["stats"]["boostDistance"])
+            stats.boost_distance)
 
-        self.match_end_data["playerData"]["stats"]["dmgDealtWith"]["0"] = self.match_end_data["playerData"]["stats"]["dmgDealt"]
-        self.match_end_data["playerData"]["stats"]["dmgReceivedBy"]["0"] = self.match_end_data["playerData"][
-            "stats"]["dmgReceived"]
-        self.match_end_data["playerData"]["stats"]["dmgDealtWithTurret"][
-            "standard"] = self.match_end_data["playerData"]["stats"]["dmgDealt"]
+        self.match_end_data["playerData"]["stats"]["dmgDealtWith"]["0"] = stats.dmg_dealt
+        self.match_end_data["playerData"]["stats"]["dmgReceivedBy"]["0"] = stats.dmg_received
+        self.match_end_data["playerData"]["stats"]["dmgDealtWithTurret"]["standard"] = stats.dmg_dealt
 
-        self.match_end_data["matchStats"]["kills"] = self.match_end_data["playerData"]["stats"]["kills"]
-        self.match_end_data["matchStats"]["botKills"] = self.match_end_data["playerData"]["stats"]["kills"]
-        self.match_end_data["matchStats"]["firstBlood"] = self.match_end_data["playerData"]["stats"]["firstBlood"]
-        self.match_end_data["matchStats"]["dmgDealt"] = self.match_end_data["playerData"]["stats"]["dmgDealt"]
-        self.match_end_data["matchStats"]["dmgReceived"] = self.match_end_data["playerData"]["stats"]["dmgReceived"]
-        self.match_end_data["matchStats"]["boostDistance"] = self.match_end_data["playerData"]["stats"][
-            "boostDistanceInt"]
+        self.match_end_data["matchStats"]["kills"] = stats.kills
+        self.match_end_data["matchStats"]["botKills"] = stats.kills
+        self.match_end_data["matchStats"]["firstBlood"] = stats.first_blood
+        self.match_end_data["matchStats"]["dmgDealt"] = stats.dmg_dealt
+        self.match_end_data["matchStats"]["dmgReceived"] = stats.dmg_received
+        self.match_end_data["matchStats"]["boostDistance"] = int(stats.boost_distance)
 
-        self.match_end_data["matchStats"]["dmgdealtwith_Basic"] = self.match_end_data["playerData"]["stats"]["dmgDealt"]
-        self.match_end_data["matchStats"]["dmgreceivedby_Basic"] = self.match_end_data["playerData"]["stats"][
-            "dmgReceived"]
-        self.match_end_data["matchStats"]["dmgdealtwith_turret_standard"] = self.match_end_data["playerData"]["stats"]["dmgDealt"]
+        self.match_end_data["matchStats"]["dmgdealtwith_Basic"] = stats.dmg_dealt
+        self.match_end_data["matchStats"]["dmgreceivedby_Basic"] = stats.dmg_received
+        self.match_end_data["matchStats"]["dmgdealtwith_turret_standard"] = stats.dmg_dealt
 
-        self.match_end_data["matchStats"]["killwith_turret_standard"] = self.match_end_data["playerData"]["stats"]["kills"]
-        self.match_end_data["matchStats"]["killwith_chassis_balanced"] = self.match_end_data["playerData"]["stats"]["kills"]
-        self.match_end_data["matchStats"]["killwith_tracks_balanced"] = self.match_end_data["playerData"]["stats"]["kills"]
+        self.match_end_data["matchStats"]["killwith_turret_standard"] = stats.kills
+        self.match_end_data["matchStats"]["killwith_chassis_balanced"] = stats.kills
+        self.match_end_data["matchStats"]["killwith_tracks_balanced"] = stats.kills
 
+        if stats.kills == 10:
+            self.match_end_data["matchData"]["reason"] = 'score'
+        else:
+            self.match_end_data["matchData"]["reason"] = 'time'
+        
+        self.match_end_data["matchData"]["teamScores"]["0"] = stats.kills
+
+        for i in range(1, 5):
+            self.match_end_data["matchData"]["playersJson"][i] = bot_generator.genereate_bot()
+        
         compressed_data = compressor.Compress(
             json.dumps(self.match_end_data))
         input_data = {"data": compressed_data}
