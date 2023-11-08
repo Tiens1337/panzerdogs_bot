@@ -19,6 +19,16 @@ BOT_NAMES = [
     "ExcitedSpeaker",
     "GradualSea",
     "REGULARSEPAL",
+    "AncientCheque",
+    "SKULL1",
+    "Miter3",
+    "Reality88",
+    "OddSoldier",
+    "Corsage4",
+    "goodmusic",
+    "Patient4781",
+    "Score34",
+    "CuteIkebana"
 ]
 
 

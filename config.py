@@ -10,4 +10,6 @@ USERNAMES_FILE = 'usernames.txt'
 
 MAX_WORKERS = 200
 
+ONLY_LINK_WALLETS = True
+
 DEFAULT_PASS = 'ASD123qwe'

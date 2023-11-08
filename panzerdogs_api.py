@@ -111,9 +111,18 @@ class PanzerdogsApi:
             return json.loads(response.text)
         return None
 
-    def check_wallet():
-        pass
-    # https://lobby2.luckykatgames.net/wallet-link/get
+    def check_wallet(self):
+        url = 'https://lobby2.luckykatgames.net/wallet-link/get'
+
+        try:
+            response = self.session.get(url=url)
+        except Exception as ex:
+            print(ex)
+            return None
+
+        if response.status_code == 200:
+            return json.loads(response.text)
+        return None
 
     def get_matchmaking(self):
         url = "https://lobby2.luckykatgames.net/matchmaking"

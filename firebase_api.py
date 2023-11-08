@@ -112,4 +112,6 @@ class FirebaseApi:
 
         if response.status_code == 200:
             return json.loads(response.text)
+        if response.status_code == 400:
+            return self.signup(email, password)
         return None

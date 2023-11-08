@@ -20,7 +20,8 @@ from models.account import AccountData
 def start_in_thread(acc: AccountData):
     rand_proxy = False
     while True:
-        sleep(random.randint(0, 20)) # for more smooth start
+        if config.MAX_WORKERS > 10:
+            sleep(random.randint(0, 20)) # for more smooth start
 
         firebaseApi = FirebaseApi()
         panzerdogsApi = {}
@@ -58,7 +59,7 @@ def start_in_thread(acc: AccountData):
                 continue
 
             resp = panzerdogsApi.link_wallet(acc.public_key)
-            if resp is None:
+            if resp is None or not resp["success"]:
                 logger.error(f'{acc.id}: Failed to link wallet')
                 rand_proxy = True
                 continue
@@ -73,7 +74,7 @@ def start_in_thread(acc: AccountData):
                     logger.success(f'{acc.id}: {email} registred')
                     break
                 except Exception as e:
-                    logger.error(f'{acc.id}: database is locked')
+                    logger.error(f'{acc.id}: database is locked: {e}')
                     sleep(5)
 
 
@@ -85,6 +86,23 @@ def start_in_thread(acc: AccountData):
                 continue
             panzerdogsApi = PanzerdogsApi(resp["idToken"], acc.proxy)
             logger.info(f'{acc.id}: signed in')
+
+        while True:
+            wallet_info = panzerdogsApi.check_wallet()
+            if wallet_info is not None and wallet_info['success']:
+                logger.info(f"{acc.id}: wallet already linked")
+                break
+        
+            resp = panzerdogsApi.link_wallet(acc.public_key)
+            if resp is None or not resp["success"]:
+                logger.error(f'{acc.id}: Failed to link wallet')
+                rand_proxy = True
+                sleep(5)
+            logger.info(f"{acc.id}: linked wallet {acc.public_key}")
+            break
+        
+        if config.ONLY_LINK_WALLETS:
+            return
 
         for i in range(5):
             match_stats = MatchStats()
@@ -126,6 +144,10 @@ def start():
             future = {executor.submit(start_in_thread, acc)
                         for acc in accs}
             wait(future)
+
+        if config.ONLY_LINK_WALLETS:
+            logger.success('ALL WALLETS HAS BEEN LINKED')
+            break
 
 
 if __name__ == '__main__':
