@@ -1,8 +1,8 @@
 import json
 import requests
 
-from random_user_agent.user_agent import UserAgent
-from random_user_agent.params import SoftwareName, OperatingSystem
+from credentials_generator import get_uagent
+from models.account import AccountData
 
 import proxies
 
@@ -10,19 +10,14 @@ KEY = "AIzaSyCArlNof-vMCzyHYOaLyQ881RpVwRaNu-Q"
 
 
 class FirebaseApi:
-    def __init__(self) -> None:
+    def __init__(self, acc: AccountData) -> None:
         self.id_token = None
         self.refresh_token = None
         self.token_refresh_time = None
 
-        software_names = [SoftwareName.ANDROID.value]
-        operating_systems = [OperatingSystem.ANDROID.value]
-        user_agent_rotator = UserAgent(
-            software_names=software_names, operating_systems=operating_systems, limit=100)
-
         self.session = requests.Session()
         self.session.headers.update(
-            {'User-Agent': user_agent_rotator.get_random_user_agent()})
+            {'User-Agent': get_uagent(acc.id)})
         
         self.session.proxies = proxies.get_random_in_requests_format()
 

@@ -23,7 +23,7 @@ def start_in_thread(acc: AccountData):
         if config.MAX_WORKERS > 10:
             sleep(random.randint(0, 20)) # for more smooth start
 
-        firebaseApi = FirebaseApi()
+        firebaseApi = FirebaseApi(acc)
         panzerdogsApi = {}
 
         proxy = ""
@@ -45,7 +45,7 @@ def start_in_thread(acc: AccountData):
                 logger.error(f'{acc.id}: Failed to register new user in firebase')
                 continue
 
-            panzerdogsApi = PanzerdogsApi(resp["idToken"], proxy)
+            panzerdogsApi = PanzerdogsApi(resp["idToken"], proxy, acc)
             resp = panzerdogsApi.register(username)
             if resp is None:
                 logger.error(f'{acc.id}: Failed to register new user in game')
@@ -84,22 +84,29 @@ def start_in_thread(acc: AccountData):
                 logger.error(f'{acc.id}: Failed to sign up in firebase')
                 rand_proxy = True
                 continue
-            panzerdogsApi = PanzerdogsApi(resp["idToken"], acc.proxy)
+            panzerdogsApi = PanzerdogsApi(resp["idToken"], acc.proxy, acc)
             logger.info(f'{acc.id}: signed in')
 
         while True:
-            wallet_info = panzerdogsApi.check_wallet()
-            if wallet_info is not None and wallet_info['success']:
+            while True:
+                wallet_info = panzerdogsApi.check_wallet()
+                if wallet_info is not None:
+                    break
+                sleep(5)
+
+            if wallet_info['success']:
                 logger.info(f"{acc.id}: wallet already linked")
                 break
-        
-            resp = panzerdogsApi.link_wallet(acc.public_key)
-            if resp is None or not resp["success"]:
-                logger.error(f'{acc.id}: Failed to link wallet')
-                rand_proxy = True
-                sleep(5)
-            logger.info(f"{acc.id}: linked wallet {acc.public_key}")
-            break
+            
+            while True:
+                resp = panzerdogsApi.link_wallet(acc.public_key)
+                if resp is None or not resp["success"]:
+                    logger.error(f'{acc.id}: Failed to link wallet')
+                    rand_proxy = True
+                    sleep(5)
+                else:
+                    logger.info(f"{acc.id}: linked wallet {acc.public_key}")
+                    break
         
         if config.ONLY_LINK_WALLETS:
             return

@@ -5,9 +5,8 @@ import requests
 import proxies
 from match_stats import MatchStats
 import bot_generator
-
-from random_user_agent.user_agent import UserAgent
-from random_user_agent.params import SoftwareName, OperatingSystem
+from credentials_generator import get_uagent
+from models.account import AccountData
 
 import compressor
 
@@ -18,23 +17,17 @@ def get_random_match_end():
 
 
 class PanzerdogsApi:
-    def __init__(self, auth_token: str, proxy) -> None:
+    def __init__(self, auth_token: str, proxy, acc: AccountData) -> None:
         self.username = None
 
         with open(f"match_end_examples/{get_random_match_end()}", "r", encoding="utf-8") as f:
             self.match_end_data = json.load(f)
 
-        software_names = [SoftwareName.ANDROID.value]
-        operating_systems = [OperatingSystem.ANDROID.value]
-
-        user_agent_rotator = UserAgent(
-            software_names=software_names, operating_systems=operating_systems, limit=100)
-
         self.session = requests.Session()
         self.session.headers.update({'Sid': 'null',
                                     'Authorization': auth_token,
                                      'Idtoken': auth_token,
-                                     'User-Agent': user_agent_rotator.get_random_user_agent(),
+                                     'User-Agent': get_uagent(acc.id),
                                      'Serverbuild': "48",
                                      "Gamemode": "teamdeathmatch",
                                      "Region": "eu"})
